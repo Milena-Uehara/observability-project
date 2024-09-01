@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sql-script
+  namespace: database
+data:
+  create-table.sql: |
+    CREATE DATABASE products_db;
+    \c products_db;
+    CREATE TABLE "products" (
+        "id" SERIAL PRIMARY KEY,
+        "name" VARCHAR,
+        "description" VARCHAR,
+        "price" DECIMAL,
+        "quantity" INTEGER
+    );

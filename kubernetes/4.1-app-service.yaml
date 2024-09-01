@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-web-store-svc
+  namespace: go-web-store
+  labels:
+    app: go-web-store
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+  selector:
+    app: go-web-store

@@ -1,9 +1,8 @@
-# add script to create db and table
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres-db
-  namespace: go-web-store
+  namespace: database
   labels:
     app: postgres-db
 spec:
@@ -15,10 +14,15 @@ spec:
     metadata:
       labels:
         app: postgres-db
+      annotations:
+          ad.datadoghq.com/postgres-db-container.logs: '[{"source": "postgresql", "service": "postgres-db", "tags":["runtime:kubernetes"]}]'
     spec:
       containers:
       - name: postgres-db-container
         image: postgres:13
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5432
         env:
         - name: POSTGRES_USER
           valueFrom:
@@ -30,5 +34,13 @@ spec:
             secretKeyRef:
               name: database
               key: db-password
-        ports:
-        - containerPort: 5432
+        volumeMounts:
+          - name: sql-script
+            mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: sql-script
+          configMap:
+            name: sql-script
+            items: 
+              - key: create-table.sql
+                path: create-table.sql

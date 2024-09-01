@@ -15,7 +15,7 @@ spec:
       labels:
         app: go-web-store
       annotations:
-        ad.datadoghq.com/go-web-store.logs: '[{"source": "go", "service": "go-store", "tags":["runtime:kubernetes"]}]'
+        ad.datadoghq.com/go-web-store-container.logs: '[{"source": "go", "service": "go-web-store", "tags":["runtime:kubernetes"]}]'
     spec:
       containers:
       - name: go-web-store-container
@@ -38,10 +38,7 @@ spec:
               name: database
               key: db-name
         - name: DB_HOST
-          valueFrom:
-            secretKeyRef:
-              name: database
-              key: db-host
+          value: postgres-svc.database
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
