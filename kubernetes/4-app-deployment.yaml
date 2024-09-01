@@ -24,7 +24,7 @@ spec:
         - name: DD_SERVICE
           value: "go-store"
         - name: DD_VERSION
-          value: "1.1"
+          value: "1.2"
         - name: DD_ENV
           value: "local"
         - name: DB_USER
@@ -38,7 +38,7 @@ spec:
               name: database
               key: db-name
         - name: DB_HOST
-          value: postgres-svc.database
+          value: postgres-svc.database # <service_name>.<namespace>
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
