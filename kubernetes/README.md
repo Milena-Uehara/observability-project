@@ -7,7 +7,8 @@
 ```
 minikube start --driver=docker
 ```
-1. Apply the manifests in order.
+### Running local stack
+1. Apply the manifests in order or run the command `make`.
     1. Create the namespaces:
         ```
         kubectl apply -f 1-namespace.yaml
@@ -55,3 +56,16 @@ minikube start --driver=docker
         ```
     [Original values](https://github.com/DataDog/helm-charts/blob/main/charts/datadog/values.yaml)
 
+### Deleting local stack
+1. To delete resources created with kubectl, run:
+    ```
+    make delete-all
+    ```
+2. To delete Datadog:
+    ```
+    helm uninstall datadog-agent -n datadog
+    ```
+    To delete Datadog secret, run:
+    ```
+    kubectl delete secrets datadog-secret -n datadog
+    ```
