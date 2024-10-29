@@ -1,0 +1,11 @@
+apiVersion: k6.io/v1alpha1
+kind: K6
+metadata:
+  name: k6-sample
+spec:
+  parallelism: 4
+  script:
+    configMap:
+      name: crocodile-stress-test
+      file: test.js
+  arguments: --env K6_OTEL_GRPC_EXPORTER_INSECURE=true --env K6_STATSD_ENABLE_TAGS=true --env K6_OTEL_GRPC_EXPORTER_ENDPOINT=datadog-agent.default.svc.cluster.local:4317 --env K6_OTEL_METRIC_PREFIX=k6.teste --out experimental-opentelemetry

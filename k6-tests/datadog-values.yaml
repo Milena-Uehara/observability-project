@@ -1,0 +1,31 @@
+datadog:
+  apiKeyExistingSecret: "datadog-secret"
+  logs:
+    enabled: true
+    containerCollectAll: true
+  otlp:
+    receiver:
+      protocols:
+        grpc:
+          enabled: true
+          endpoint: "0.0.0.0:4317"
+          useHostPort: true
+        http:
+          enabled: true
+          endpoint: "0.0.0.0:4318"
+          useHostPort: true
+    logs:
+      enabled: false
+  kubelet:
+    tlsVerify: false
+  dogstatsd:
+    port: 8125
+    originDetection: false
+    tags: []
+    tagCardinality: low
+    useSocketVolume: true
+    socketPath: /var/run/datadog/dsd.socket
+    hostSocketPath: /var/run/datadog/
+    useHostPort: false
+    useHostPID: false
+    nonLocalTraffic: true
